@@ -41,14 +41,14 @@
 
       <v-toolbar-title>Title</v-toolbar-title>
       <v-spacer />
-      <v-btn icon>
+      <v-btn icon tile to="/">
         <v-icon>mdi-home</v-icon>
       </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
+      <v-btn icon tile to="/favorites">
+        <v-icon>mdi-heart</v-icon>
       </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-account</v-icon>
+      <v-btn icon tile to="/about">
+        <v-icon>mdi-information-variant</v-icon>
       </v-btn>
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
