@@ -1,4 +1,3 @@
-const COLORS = ['undefined', 'primary', 'secondary', 'red', 'pink', 'purple', 'deep-purple', 'indigo', 'blue']
 const HEIGHTS = [40, 48, 56, 64, 72, 80]
 const THRESHOLD = ['undefined', 0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
 const SRC = ['undefined', 'https://picsum.photos/1920/1080?random']
@@ -27,16 +26,9 @@ const appBar = {
       fadeImgOnScroll: false,
       scrollThreshold: undefined
     },
-    extentionSlot: false,
-    theme: {
-      dark: true,
-      light: false
-    }
+    extentionSlot: false
   },
   getters: {
-    colorList() {
-      return COLORS
-    },
     heightList() {
       return HEIGHTS
     },
@@ -63,26 +55,20 @@ const appBar = {
     },
     toggleExtentionSlot(state) {
       state.extentionSlot = !state.extentionSlot
-    },
-    toggleTheme(state, prop) {
-      state.theme[prop] = !state.theme[prop]
     }
   },
   actions: {
-    toggle({ commit }, prop) {
+    toggleAppBar({ commit }, prop) {
       commit('toggle', prop)
     },
-    change({ commit }, payload) {
+    changeAppBar({ commit }, payload) {
       commit('change', payload)
     },
-    reset({ commit }, prop) {
+    resetAppBar({ commit }, prop) {
       commit('reset', prop)
     },
     toggleExtentionSlot({ commit }) {
       commit('toggleExtentionSlot')
-    },
-    toggleTheme({ commit }, prop) {
-      commit('toggleTheme', prop)
     }
   }
 }
