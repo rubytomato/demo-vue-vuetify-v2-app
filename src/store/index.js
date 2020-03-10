@@ -4,6 +4,7 @@ import theme from './theme'
 import navDrawer from './navdrawer'
 import appBar from './appbar'
 import footer from './footer'
+import bottomNav from './bottomnav'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ export default new Vuex.Store({
     theme,
     navDrawer,
     appBar,
-    footer
+    footer,
+    bottomNav
   },
   state: {
     menus: [
