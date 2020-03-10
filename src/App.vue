@@ -1,5 +1,5 @@
 <template>
-  <v-app :dark="theme.dark" :light="theme.light">
+  <v-app :dark="theme.dark" :light="theme.light" v-scroll="onScroll">
     <v-navigation-drawer
       app
       v-model="drawer"
@@ -26,6 +26,7 @@
       :touchless="navDrawer.touchless"
       :width="navDrawer.width"
       :height="navDrawer.height"
+      v-if="drawerOn"
     >
       <v-list-item>
         <v-list-item-title class="title">
@@ -62,6 +63,7 @@
         </div>
       </template>
     </v-navigation-drawer>
+
     <v-app-bar
       app
       :dark="theme.dark"
@@ -103,10 +105,21 @@
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
-      <v-toolbar-title>Title</v-toolbar-title>
+      <v-toolbar-title>
+        <v-btn class="title" text to="/"> Title : {{ offsetTop }} </v-btn>
+      </v-toolbar-title>
       <v-spacer />
       <v-btn icon tile v-for="menu in menus" :key="menu.title" :to="menu.url">
         <v-icon>{{ menu.icon }}</v-icon>
+      </v-btn>
+      <v-btn icon tile @click.stop="drawerOn = !drawerOn">
+        <v-icon>{{ drawerIcon }}</v-icon>
+      </v-btn>
+      <v-btn icon tile @click.stop="footerOn = !footerOn">
+        <v-icon>{{ footerIcon }}</v-icon>
+      </v-btn>
+      <v-btn icon tile @click.stop="bottomNavOn = !bottomNavOn">
+        <v-icon>{{ bottomNavIcon }}</v-icon>
       </v-btn>
       <v-btn icon tile>
         <v-icon>mdi-dots-vertical</v-icon>
@@ -116,6 +129,29 @@
     <v-content>
       <router-view />
     </v-content>
+
+    <v-bottom-navigation
+      app
+      :dark="theme.dark"
+      :light="theme.light"
+      :background-color="theme.color"
+      :active-class="bottomNav.activeClass"
+      :grow="bottomNav.grow"
+      :height="bottomNav.height"
+      :hide-on-scroll="bottomNav.hideOnScroll"
+      :horizontal="bottomNav.horizontal"
+      :input-value="bottomNav.inputValue"
+      :mandatory="bottomNav.mandatory"
+      :scroll-threshold="bottomNav.scrollThreshold"
+      :shift="bottomNav.shift"
+      :width="bottomNav.width"
+      v-if="bottomNavOn"
+    >
+      <v-btn v-for="menu in menus" :key="menu.title" :to="menu.url">
+        <span>{{ menu.title }}</span>
+        <v-icon>{{ menu.icon }}</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
 
     <v-footer
       app
@@ -128,6 +164,7 @@
       :elevation="footer.elevation"
       :absolute="footer.absolute"
       :fixed="footer.fixed"
+      v-if="footerOn"
     >
       <v-card :color="theme.color" tile width="100%" class="text-center">
         <v-card-text>
@@ -154,7 +191,11 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'App',
   data: () => ({
-    drawer: false
+    drawer: false,
+    drawerOn: true,
+    footerOn: false,
+    bottomNavOn: true,
+    offsetTop: 0
   }),
   computed: {
     ...mapState(['menus']),
@@ -168,12 +209,27 @@ export default {
     ...mapState('footer', {
       footer: state => state.props
     }),
+    ...mapState('bottomNav', {
+      bottomNav: state => state.props
+    }),
     ...mapState('theme', {
       theme: state => state.props
-    })
+    }),
+    drawerIcon() {
+      return this.drawerOn ? 'mdi-alpha-d-box' : 'mdi-alpha-d-box-outline'
+    },
+    footerIcon() {
+      return this.footerOn ? 'mdi-alpha-f-box' : 'mdi-alpha-f-box-outline'
+    },
+    bottomNavIcon() {
+      return this.bottomNavOn ? 'mdi-alpha-b-box' : 'mdi-alpha-b-box-outline'
+    }
   },
   methods: {
-    ...mapActions('navDrawer', ['toggleNavDrawer'])
+    ...mapActions('navDrawer', ['toggleNavDrawer']),
+    onScroll(e) {
+      this.offsetTop = e.target.scrollingElement.scrollTop
+    }
   }
 }
 </script>

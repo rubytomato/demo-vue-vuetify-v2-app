@@ -1,5 +1,5 @@
 const HEIGHTS = [40, 48, 56, 64, 72, 80]
-const THRESHOLD = ['undefined', 0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
+const THRESHOLD = ['undefined', 0, 10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
 const SRC = ['undefined', 'https://picsum.photos/1920/1080?random']
 
 const appBar = {

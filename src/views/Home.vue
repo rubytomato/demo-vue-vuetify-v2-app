@@ -556,6 +556,138 @@
           </v-list-item>
         </v-list>
       </v-col>
+      <v-col class="mb-5" cols="12">
+        <v-list dense class="text-left">
+          <v-subheader>Bottom Navigation</v-subheader>
+          <v-list-item>
+            <v-list-item-content>
+              <v-select
+                :items="activeClassList()"
+                :value="bottomNav.activeClass"
+                label="active class"
+                return-object
+                @change="selectValue($event, 'bottomNav', 'activeClass')"
+              />
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>grow: {{ bottomNav.grow }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="bottomNav.grow" @click.stop="toggleBottomNav('grow')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item three-line>
+            <v-list-item-content>
+              <v-list-item-title>
+                <v-slider
+                  dense
+                  :thumb-size="20"
+                  thumb-label="always"
+                  height="72"
+                  min="40"
+                  max="160"
+                  :value="bottomNav.height"
+                  label="height"
+                  @change="selectValue($event, 'bottomNav', 'height')"
+                />
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item three-line>
+            <v-list-item-content>
+              <v-list-item-title>
+                <v-slider
+                  dense
+                  :thumb-size="20"
+                  thumb-label="always"
+                  height="72"
+                  min="400"
+                  max="800"
+                  :value="bottomNav.width"
+                  label="width"
+                  @change="selectValue($event, 'bottomNav', 'width')"
+                />
+              </v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-list-item-action-text>reset</v-list-item-action-text>
+              <v-btn icon right @click.stop="resetBottomNav('width')">
+                <v-icon>mdi-star</v-icon>
+              </v-btn>
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>hideOnScroll: {{ bottomNav.hideOnScroll }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="bottomNav.hideOnScroll" @click.stop="toggleBottomNav('hideOnScroll')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-select
+                :items="thresholdList()"
+                :value="bottomNav.scrollThreshold"
+                label="scroll threshold"
+                return-object
+                @change="selectValue($event, 'bottomNav', 'scrollThreshold')"
+              />
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>horizontal: {{ bottomNav.horizontal }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="bottomNav.horizontal" @click.stop="toggleBottomNav('horizontal')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>shift: {{ bottomNav.shift }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="bottomNav.shift" @click.stop="toggleBottomNav('shift')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>mandatory: {{ bottomNav.mandatory }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="bottomNav.mandatory" @click.stop="toggleBottomNav('mandatory')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>inputValue: {{ bottomNav.inputValue }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="bottomNav.inputValue" @click.stop="toggleBottomNav('inputValue')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-divider />
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>absolute: {{ bottomNav.absolute }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="bottomNav.absolute" @click.stop="toggleBottomNav('absolute')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>fixed: {{ bottomNav.fixed }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="bottomNav.fixed" @click.stop="toggleBottomNav('fixed')" />
+            </v-list-item-action>
+          </v-list-item>
+        </v-list>
+      </v-col>
 
       <v-col class="mb-10" cols="12">
         <h2 class="headline font-weight-bold mb-3">
@@ -636,6 +768,9 @@ export default {
     ...mapState('footer', {
       footer: state => state.props
     }),
+    ...mapState('bottomNav', {
+      bottomNav: state => state.props
+    }),
     ...mapState('theme', {
       theme: state => state.props
     })
@@ -654,15 +789,19 @@ export default {
         this.changeNavDrawer(payload)
       } else if (module === 'footer') {
         this.changeFooter(payload)
+      } else if (module === 'bottomNav') {
+        this.changeBottomNav(payload)
       }
     },
     ...mapGetters('theme', ['colorList']),
     ...mapGetters('appBar', ['heightList', 'thresholdList', 'srcList']),
     ...mapGetters('navDrawer', { drawerSrcList: 'srcList' }),
+    ...mapGetters('bottomNav', ['activeClassList']),
     ...mapActions('theme', ['change', 'changeTheme']),
     ...mapActions('appBar', ['toggleAppBar', 'changeAppBar', 'resetAppBar', 'toggleExtentionSlot']),
     ...mapActions('navDrawer', ['toggleNavDrawer', 'changeNavDrawer', 'resetNavDrawer']),
-    ...mapActions('footer', ['toggleFooter', 'changeFooter', 'resetFooter'])
+    ...mapActions('footer', ['toggleFooter', 'changeFooter', 'resetFooter']),
+    ...mapActions('bottomNav', ['toggleBottomNav', 'changeBottomNav', 'resetBottomNav'])
   },
   data: () => ({
     ecosystem: [
