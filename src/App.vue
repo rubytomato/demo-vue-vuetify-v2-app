@@ -1,5 +1,67 @@
 <template>
   <v-app :dark="theme.dark" :light="theme.light">
+    <v-navigation-drawer
+      app
+      v-model="drawer"
+      :dark="theme.dark"
+      :light="theme.light"
+      :color="theme.color"
+      :bottom="navDrawer.bottom"
+      :clipped="navDrawer.clipped"
+      :disable-resize-watcher="navDrawer.disableResizeWatcher"
+      :disable-route-watcher="navDrawer.disableRouteWatcher"
+      :expand-on-hover="navDrawer.expandOnHover"
+      :floating="navDrawer.floating"
+      :hide-overlay="navDrawer.hideOverlay"
+      :mini-variant.sync="navDrawer.miniVariant"
+      :mini-variant-width="navDrawer.miniVariantWidth"
+      :mobile-break-point="navDrawer.mobileBreakPoint"
+      :overlay-color="navDrawer.overlayColor"
+      :overlay-opacity="navDrawer.overlayOpacity"
+      :permanent="navDrawer.permanent"
+      :right="navDrawer.right"
+      :src="navDrawer.src"
+      :stateless="navDrawer.stateless"
+      :temporary="navDrawer.temporary"
+      :touchless="navDrawer.touchless"
+      :width="navDrawer.width"
+      :height="navDrawer.height"
+    >
+      <v-list-item>
+        <v-list-item-title class="title">
+          Drawer
+        </v-list-item-title>
+        <v-btn icon @click.stop="toggleNavDrawer('miniVariant')">
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+      </v-list-item>
+      <v-divider />
+      <v-list nav>
+        <v-list-item v-for="menu in menus" :key="menu.title" :to="menu.url">
+          <v-list-item-icon>
+            <v-icon>{{ menu.icon }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{ menu.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <template v-slot:img="{ height, src }" v-if="navDrawer.src">
+        <v-img :height="height" :src="src" gradient="to top right, rgba(55,236,186,.7), rgba(25,32,72,.7)"></v-img>
+      </template>
+
+      <template v-slot:prepend v-if="navDrawer.prependSlot">
+        <div class="pa-2">
+          <v-btn block>prepend</v-btn>
+        </div>
+      </template>
+      <template v-slot:append v-if="navDrawer.appendSlot">
+        <div class="pa-2">
+          <v-btn block>append</v-btn>
+        </div>
+      </template>
+    </v-navigation-drawer>
     <v-app-bar
       app
       :dark="theme.dark"
@@ -23,6 +85,8 @@
       :src="appBar.src"
       :fade-img-on-scroll="appBar.fadeImgOnScroll"
       :scroll-threshold="appBar.scrollThreshold"
+      :clipped-left="appBar.clippedLeft"
+      :clipped-right="appBar.clippedRight"
     >
       <template v-slot:extension v-if="extentionSlot">
         <v-tabs align-with-title fixed-tabs color="white">
@@ -37,20 +101,14 @@
         <v-img v-bind="props" gradient="to top right, rgba(55,236,186,.7), rgba(25,32,72,.7)"></v-img>
       </template>
 
-      <v-app-bar-nav-icon />
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
       <v-toolbar-title>Title</v-toolbar-title>
       <v-spacer />
-      <v-btn icon tile to="/">
-        <v-icon>mdi-home</v-icon>
+      <v-btn icon tile v-for="menu in menus" :key="menu.title" :to="menu.url">
+        <v-icon>{{ menu.icon }}</v-icon>
       </v-btn>
-      <v-btn icon tile to="/favorites">
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-      <v-btn icon tile to="/about">
-        <v-icon>mdi-information-variant</v-icon>
-      </v-btn>
-      <v-btn icon>
+      <v-btn icon tile>
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
     </v-app-bar>
@@ -91,14 +149,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'App',
   data: () => ({
-    //
+    drawer: false
   }),
   computed: {
+    ...mapState(['menus']),
+    ...mapState('navDrawer', {
+      navDrawer: state => state.props
+    }),
     ...mapState('appBar', {
       appBar: state => state.props,
       extentionSlot: state => state.extentionSlot
@@ -109,6 +171,9 @@ export default {
     ...mapState('theme', {
       theme: state => state.props
     })
+  },
+  methods: {
+    ...mapActions('navDrawer', ['toggleNavDrawer'])
   }
 }
 </script>

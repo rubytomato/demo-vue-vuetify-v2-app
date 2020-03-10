@@ -50,7 +50,7 @@
           <v-subheader>Theme</v-subheader>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>dark = [{{ theme.dark }}]</v-list-item-title>
+              <v-list-item-title>dark: {{ theme.dark }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="theme.dark" @click.stop="selectTheme(true, false)" />
@@ -58,7 +58,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>light= [ {{ theme.light }}]</v-list-item-title>
+              <v-list-item-title>light: {{ theme.light }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="theme.light" @click.stop="selectTheme(false, true)" />
@@ -67,16 +67,25 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>
-                <v-select :items="colorList()" :value="theme.color" label="color" return-object @change="selectColor" />
+                <v-select
+                  :items="colorList()"
+                  :value="theme.color"
+                  label="color"
+                  return-object
+                  @change="selectValue($event, 'theme', 'color')"
+                />
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
-        <v-list dense subheader class="text-left">
+      </v-col>
+
+      <v-col class="mb-5" cols="12">
+        <v-list dense class="text-left">
           <v-subheader>Application Bar</v-subheader>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>tile = [{{ appBar.tile }}]</v-list-item-title>
+              <v-list-item-title>tile: {{ appBar.tile }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="appBar.tile" @click.stop="toggleAppBar('tile')" />
@@ -84,7 +93,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>dense = [{{ appBar.dense }}]</v-list-item-title>
+              <v-list-item-title>dense: {{ appBar.dense }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="appBar.dense" @click.stop="toggleAppBar('dense')" />
@@ -92,7 +101,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>short = [{{ appBar.short }}]</v-list-item-title>
+              <v-list-item-title>short: {{ appBar.short }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="appBar.short" @click.stop="toggleAppBar('short')" />
@@ -100,7 +109,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>prominent = [{{ appBar.prominent }}]</v-list-item-title>
+              <v-list-item-title>prominent: {{ appBar.prominent }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="appBar.prominent" @click.stop="toggleAppBar('prominent')" />
@@ -108,7 +117,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>shrinkOnScroll = [{{ appBar.shrinkOnScroll }}]</v-list-item-title>
+              <v-list-item-title>shrinkOnScroll: {{ appBar.shrinkOnScroll }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="appBar.shrinkOnScroll" @click.stop="toggleAppBar('shrinkOnScroll')" />
@@ -117,7 +126,7 @@
           <v-divider />
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>extentionSlot = [{{ extentionSlot }}]</v-list-item-title>
+              <v-list-item-title>extentionSlot: {{ extentionSlot }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="extentionSlot" @click.stop="toggleExtentionSlot" />
@@ -125,7 +134,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>extended = [{{ appBar.extended }}]</v-list-item-title>
+              <v-list-item-title>extended: {{ appBar.extended }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="appBar.extended" @click.stop="toggleAppBar('extended')" />
@@ -139,7 +148,7 @@
                   :value="appBar.extensionHeight"
                   label="extension height"
                   return-object
-                  @change="selectHeight"
+                  @change="selectValue($event, 'appBar', 'extensionHeight')"
                 />
               </v-list-item-title>
             </v-list-item-content>
@@ -147,7 +156,7 @@
           <v-divider />
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>flat = [{{ appBar.flat }}]</v-list-item-title>
+              <v-list-item-title>flat: {{ appBar.flat }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="appBar.flat" @click.stop="toggleAppBar('flat')" />
@@ -155,7 +164,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>elevateOnScroll = [{{ appBar.elevateOnScroll }}]</v-list-item-title>
+              <v-list-item-title>elevateOnScroll: {{ appBar.elevateOnScroll }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="appBar.elevateOnScroll" @click.stop="toggleAppBar('elevateOnScroll')" />
@@ -173,7 +182,7 @@
                   max="24"
                   :value="appBar.elevation"
                   label="elevation"
-                  @change="selectElevation($event, 'appBar')"
+                  @change="selectValue($event, 'appBar', 'elevation')"
                 />
               </v-list-item-title>
             </v-list-item-content>
@@ -187,7 +196,7 @@
           <v-divider />
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>hideOnScroll = [{{ appBar.hideOnScroll }}]</v-list-item-title>
+              <v-list-item-title>hideOnScroll: {{ appBar.hideOnScroll }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="appBar.hideOnScroll" @click.stop="toggleAppBar('hideOnScroll')" />
@@ -195,7 +204,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>invertedScroll = [{{ appBar.invertedScroll }}]</v-list-item-title>
+              <v-list-item-title>invertedScroll: {{ appBar.invertedScroll }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="appBar.invertedScroll" @click.stop="toggleAppBar('invertedScroll')" />
@@ -203,7 +212,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>scrollOffScreen = [{{ appBar.scrollOffScreen }}]</v-list-item-title>
+              <v-list-item-title>scrollOffScreen: {{ appBar.scrollOffScreen }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="appBar.scrollOffScreen" @click.stop="toggleAppBar('scrollOffScreen')" />
@@ -212,7 +221,7 @@
           <v-divider />
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>collapse = [{{ appBar.collapse }}]</v-list-item-title>
+              <v-list-item-title>collapse: {{ appBar.collapse }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="appBar.collapse" @click.stop="toggleAppBar('collapse')" />
@@ -220,7 +229,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>collapseOnScroll = [{{ appBar.collapseOnScroll }}]</v-list-item-title>
+              <v-list-item-title>collapseOnScroll: {{ appBar.collapseOnScroll }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="appBar.collapseOnScroll" @click.stop="toggleAppBar('collapseOnScroll')" />
@@ -229,12 +238,18 @@
           <v-divider />
           <v-list-item>
             <v-list-item-content>
-              <v-select :items="srcList()" :value="appBar.src" label="src" return-object @change="selectSrc" />
+              <v-select
+                :items="srcList()"
+                :value="appBar.src"
+                label="src"
+                return-object
+                @change="selectValue($event, 'appBar', 'src')"
+              />
             </v-list-item-content>
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>fadeImgOnScroll = [{{ appBar.fadeImgOnScroll }}]</v-list-item-title>
+              <v-list-item-title>fadeImgOnScroll: {{ appBar.fadeImgOnScroll }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="appBar.fadeImgOnScroll" @click.stop="toggleAppBar('fadeImgOnScroll')" />
@@ -248,16 +263,36 @@
                 :value="appBar.scrollThreshold"
                 label="scroll threshold"
                 return-object
-                @change="selectThreshold"
+                @change="selectValue($event, 'appBar', 'scrollThreshold')"
               />
             </v-list-item-content>
           </v-list-item>
+          <v-divider />
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>clippedLeft: {{ appBar.clippedLeft }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="appBar.clippedLeft" @click.stop="toggleAppBar('clippedLeft')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>clippedRight: {{ appBar.clippedRight }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="appBar.clippedRight" @click.stop="toggleAppBar('clippedRight')" />
+            </v-list-item-action>
+          </v-list-item>
         </v-list>
-        <v-list dense subheader class="text-left">
+      </v-col>
+
+      <v-col class="mb-5" cols="12">
+        <v-list dense class="text-left">
           <v-subheader>Footer</v-subheader>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>padless = [{{ footer.padless }}]</v-list-item-title>
+              <v-list-item-title>padless: {{ footer.padless }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="footer.padless" @click.stop="toggleFooter('padless')" />
@@ -265,7 +300,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>tile = [{{ footer.tile }}]</v-list-item-title>
+              <v-list-item-title>tile: {{ footer.tile }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="footer.tile" @click.stop="toggleFooter('tile')" />
@@ -273,7 +308,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>inset = [{{ footer.inset }}]</v-list-item-title>
+              <v-list-item-title>inset: {{ footer.inset }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="footer.inset" @click.stop="toggleFooter('inset')" />
@@ -291,7 +326,7 @@
                   max="24"
                   :value="footer.elevation"
                   label="elevation"
-                  @change="selectElevation($event, 'footer')"
+                  @change="selectValue($event, 'footer', 'elevation')"
                 />
               </v-list-item-title>
             </v-list-item-content>
@@ -305,7 +340,7 @@
           <v-divider />
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>absolute = [{{ footer.absolute }}]</v-list-item-title>
+              <v-list-item-title>absolute: {{ footer.absolute }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="footer.absolute" @click.stop="toggleFooter('absolute')" />
@@ -313,10 +348,210 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>fixed = [{{ footer.fixed }}]</v-list-item-title>
+              <v-list-item-title>fixed: {{ footer.fixed }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
               <v-checkbox v-model="footer.fixed" @click.stop="toggleFooter('fixed')" />
+            </v-list-item-action>
+          </v-list-item>
+        </v-list>
+      </v-col>
+
+      <v-col class="mb-5" cols="12">
+        <v-list dense class="text-left">
+          <v-subheader>Navigation Drawer</v-subheader>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>bottom: {{ navDrawer.bottom }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="navDrawer.bottom" @click.stop="toggleNavDrawer('bottom')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>clipped: {{ navDrawer.clipped }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="navDrawer.clipped" @click.stop="toggleNavDrawer('clipped')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>floating: {{ navDrawer.floating }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="navDrawer.floating" @click.stop="toggleNavDrawer('floating')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>hideOverlay: {{ navDrawer.hideOverlay }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="navDrawer.hideOverlay" @click.stop="toggleNavDrawer('hideOverlay')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>permanent: {{ navDrawer.permanent }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="navDrawer.permanent" @click.stop="toggleNavDrawer('permanent')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>right: {{ navDrawer.right }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="navDrawer.right" @click.stop="toggleNavDrawer('right')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>temporary: {{ navDrawer.temporary }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="navDrawer.temporary" @click.stop="toggleNavDrawer('temporary')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>miniVariant: {{ navDrawer.miniVariant }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="navDrawer.miniVariant" @click.stop="toggleNavDrawer('miniVariant')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item three-line>
+            <v-list-item-content>
+              <v-list-item-title>
+                <v-slider
+                  dense
+                  :thumb-size="20"
+                  thumb-label="always"
+                  height="72"
+                  min="40"
+                  max="80"
+                  :value="navDrawer.miniVariantWidth"
+                  label="miniVariantWidth"
+                  @change="selectValue($event, 'navDrawer', 'miniVariantWidth')"
+                />
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>expandOnHover: {{ navDrawer.expandOnHover }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="navDrawer.expandOnHover" @click.stop="toggleNavDrawer('expandOnHover')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>value: {{ navDrawer.value }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="navDrawer.value" @click.stop="toggleNavDrawer('value')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>
+                <v-select
+                  :items="colorList()"
+                  :value="theme.color"
+                  label="overlayColor"
+                  return-object
+                  @change="selectValue($event, 'navDrawer', 'overlayColor')"
+                />
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider />
+          <v-list-item>
+            <v-list-item-content>
+              <v-select
+                :items="drawerSrcList()"
+                :value="navDrawer.src"
+                label="src"
+                return-object
+                @change="selectValue($event, 'navDrawer', 'src')"
+              />
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item three-line>
+            <v-list-item-content>
+              <v-list-item-title>
+                <v-slider
+                  dense
+                  :thumb-size="20"
+                  thumb-label="always"
+                  height="72"
+                  min="240"
+                  max="280"
+                  :value="navDrawer.width"
+                  label="width"
+                  @change="selectValue($event, 'navDrawer', 'width')"
+                />
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>stateless: {{ navDrawer.stateless }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="navDrawer.stateless" @click.stop="toggleNavDrawer('stateless')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>touchless: {{ navDrawer.touchless }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="navDrawer.touchless" @click.stop="toggleNavDrawer('touchless')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>disableResizeWatcher: {{ navDrawer.disableResizeWatcher }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox
+                v-model="navDrawer.disableResizeWatcher"
+                @click.stop="toggleNavDrawer('disableResizeWatcher')"
+              />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>disableRouteWatcher: {{ navDrawer.disableRouteWatcher }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox
+                v-model="navDrawer.disableRouteWatcher"
+                @click.stop="toggleNavDrawer('disableRouteWatcher')"
+              />
+            </v-list-item-action>
+          </v-list-item>
+          <v-divider />
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>prependSlot: {{ navDrawer.prependSlot }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="navDrawer.prependSlot" @click.stop="toggleNavDrawer('prependSlot')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>appendSlot: {{ navDrawer.appendSlot }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="navDrawer.appendSlot" @click.stop="toggleNavDrawer('appendSlot')" />
             </v-list-item-action>
           </v-list-item>
         </v-list>
@@ -395,6 +630,9 @@ export default {
       appBar: state => state.props,
       extentionSlot: state => state.extentionSlot
     }),
+    ...mapState('navDrawer', {
+      navDrawer: state => state.props
+    }),
     ...mapState('footer', {
       footer: state => state.props
     }),
@@ -403,33 +641,28 @@ export default {
     })
   },
   methods: {
-    selectColor(color) {
-      this.changeColor(color)
-    },
     selectTheme(dark, light) {
       this.changeTheme({ dark, light })
     },
-    selectHeight(height) {
-      this.changeAppBar({ prop: 'extensionHeight', value: height })
-    },
-    selectElevation(elevation, module) {
-      if (module === 'appBar') {
-        this.changeAppBar({ prop: 'elevation', value: elevation })
+    selectValue(value, module, prop) {
+      const payload = { prop: prop, value: value }
+      if (module === 'theme') {
+        this.change(payload)
+      } else if (module === 'appBar') {
+        this.changeAppBar(payload)
+      } else if (module === 'navDrawer') {
+        this.changeNavDrawer(payload)
       } else if (module === 'footer') {
-        this.changeFooter({ prop: 'elevation', value: elevation })
+        this.changeFooter(payload)
       }
     },
-    selectThreshold(threshold) {
-      this.changeAppBar({ prop: 'scrollThreshold', value: threshold })
-    },
-    selectSrc(src) {
-      this.changeAppBar({ prop: 'src', value: src })
-    },
-    ...mapGetters('appBar', ['heightList', 'thresholdList', 'srcList']),
     ...mapGetters('theme', ['colorList']),
+    ...mapGetters('appBar', ['heightList', 'thresholdList', 'srcList']),
+    ...mapGetters('navDrawer', { drawerSrcList: 'srcList' }),
+    ...mapActions('theme', ['change', 'changeTheme']),
     ...mapActions('appBar', ['toggleAppBar', 'changeAppBar', 'resetAppBar', 'toggleExtentionSlot']),
-    ...mapActions('footer', ['toggleFooter', 'changeFooter', 'resetFooter']),
-    ...mapActions('theme', ['changeColor', 'changeTheme'])
+    ...mapActions('navDrawer', ['toggleNavDrawer', 'changeNavDrawer', 'resetNavDrawer']),
+    ...mapActions('footer', ['toggleFooter', 'changeFooter', 'resetFooter'])
   },
   data: () => ({
     ecosystem: [

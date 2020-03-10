@@ -24,8 +24,8 @@ const theme = {
     }
   },
   actions: {
-    changeColor({ commit }, color) {
-      commit('change', { prop: 'color', value: color })
+    change({ commit }, payload) {
+      commit('change', payload)
     },
     changeTheme({ commit }, payload) {
       commit('change', { prop: 'dark', value: payload.dark })

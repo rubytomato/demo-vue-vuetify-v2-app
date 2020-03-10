@@ -24,7 +24,9 @@ const appBar = {
       tile: true,
       src: undefined,
       fadeImgOnScroll: false,
-      scrollThreshold: undefined
+      scrollThreshold: undefined,
+      clippedLeft: false,
+      clippedRight: false
     },
     extentionSlot: false
   },
