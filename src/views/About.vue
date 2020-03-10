@@ -48,13 +48,6 @@ export default {
   name: 'About',
   data: () => ({
     //
-  }),
-  mounted() {
-    console.log('mounted')
-    console.log(this.$route)
-    console.log(this.$vuetify)
-    console.log(this.$vuetify.breakpoint)
-    console.log(this.$vuetify.application)
-  }
+  })
 }
 </script>
