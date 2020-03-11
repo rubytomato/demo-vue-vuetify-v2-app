@@ -26,7 +26,7 @@ const bottomNav = {
       fixed: false,
       grow: false,
       height: 56,
-      hideOnScroll: true,
+      hideOnScroll: false,
       horizontal: false,
       inputValue: false,
       mandatory: false,

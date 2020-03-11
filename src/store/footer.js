@@ -3,7 +3,7 @@ const footer = {
   state: {
     props: {
       padless: true,
-      inset: true,
+      inset: false,
       tile: true,
       elevation: undefined,
       absolute: false,

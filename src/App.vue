@@ -59,7 +59,7 @@
       </template>
       <template v-slot:append v-if="navDrawer.appendSlot">
         <div class="pa-2">
-          <v-btn block>append</v-btn>
+          <v-btn block @click.stop="drawer = !drawer">close</v-btn>
         </div>
       </template>
     </v-navigation-drawer>
@@ -193,8 +193,8 @@ export default {
   data: () => ({
     drawer: false,
     drawerOn: true,
-    footerOn: false,
-    bottomNavOn: true,
+    footerOn: true,
+    bottomNavOn: false,
     offsetTop: 0
   }),
   computed: {

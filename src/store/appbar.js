@@ -7,6 +7,8 @@ const appBar = {
   state: {
     props: {
       color: 'primary',
+      absolute: false,
+      fixed: false,
       dense: false,
       short: true,
       prominent: false,

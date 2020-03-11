@@ -284,6 +284,22 @@
               <v-checkbox v-model="appBar.clippedRight" @click.stop="toggleAppBar('clippedRight')" />
             </v-list-item-action>
           </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>absolute: {{ appBar.absolute }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="appBar.absolute" @click.stop="toggleAppBar('absolute')" />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>fixed: {{ appBar.fixed }}</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox v-model="appBar.fixed" @click.stop="toggleAppBar('fixed')" />
+            </v-list-item-action>
+          </v-list-item>
         </v-list>
       </v-col>
 

@@ -26,7 +26,7 @@ const navdrawer = {
       width: 256,
       height: '100%',
       prependSlot: false,
-      appendSlot: false
+      appendSlot: true
     }
   },
   getters: {
