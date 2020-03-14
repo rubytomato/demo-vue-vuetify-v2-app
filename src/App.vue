@@ -2,7 +2,23 @@
   <v-app :dark="theme.dark" :light="theme.light" v-scroll="onScroll">
     <v-navigation-drawer
       app
-      v-model="drawer"
+      v-model="rightDrawer"
+      :dark="theme.dark"
+      :light="theme.light"
+      color="white"
+      right
+      temporary
+    >
+      <v-list-item color="white accent-3">
+        <v-list-item-title class="title grey--text">
+          Right Drawer
+        </v-list-item-title>
+      </v-list-item>
+    </v-navigation-drawer>
+
+    <v-navigation-drawer
+      app
+      v-model="leftDrawer"
       :dark="theme.dark"
       :light="theme.light"
       :color="theme.color"
@@ -26,11 +42,10 @@
       :touchless="navDrawer.touchless"
       :width="navDrawer.width"
       :height="navDrawer.height"
-      v-if="drawerOn"
     >
       <v-list-item>
         <v-list-item-title class="title">
-          Drawer
+          Left Drawer
         </v-list-item-title>
         <v-btn icon @click.stop="toggleNavDrawer('miniVariant')">
           <v-icon>mdi-chevron-left</v-icon>
@@ -59,7 +74,7 @@
       </template>
       <template v-slot:append v-if="navDrawer.appendSlot">
         <div class="pa-2">
-          <v-btn block @click.stop="drawer = !drawer">close</v-btn>
+          <v-btn block @click.stop="leftDrawer = !leftDrawer">close</v-btn>
         </div>
       </template>
     </v-navigation-drawer>
@@ -103,25 +118,21 @@
         <v-img v-bind="props" gradient="to top right, rgba(55,236,186,.7), rgba(25,32,72,.7)"></v-img>
       </template>
 
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon @click.stop="leftDrawer = !leftDrawer" v-if="$vuetify.breakpoint.mdAndUp" />
 
       <v-toolbar-title>
-        <v-btn class="title" text to="/"> Title : {{ offsetTop }} </v-btn>
+        <!-- <div class="title white--text">Demo Application : {{ offsetTop }}</div> -->
+        <router-link class="title white--text logo" to="/">Demo Application</router-link> : {{ offsetTop }}
       </v-toolbar-title>
+
       <v-spacer />
-      <v-btn icon tile v-for="menu in menus" :key="menu.title" :to="menu.url">
-        <v-icon>{{ menu.icon }}</v-icon>
-      </v-btn>
-      <v-btn icon tile @click.stop="drawerOn = !drawerOn">
-        <v-icon>{{ drawerIcon }}</v-icon>
-      </v-btn>
-      <v-btn icon tile @click.stop="footerOn = !footerOn">
-        <v-icon>{{ footerIcon }}</v-icon>
-      </v-btn>
-      <v-btn icon tile @click.stop="bottomNavOn = !bottomNavOn">
-        <v-icon>{{ bottomNavIcon }}</v-icon>
-      </v-btn>
-      <v-btn icon tile>
+
+      <template v-if="$vuetify.breakpoint.mdAndUp">
+        <v-btn icon tile v-for="menu in menus" :key="menu.title" :to="menu.url">
+          <v-icon>{{ menu.icon }}</v-icon>
+        </v-btn>
+      </template>
+      <v-btn icon tile v-if="$vuetify.breakpoint.smAndDown" @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
     </v-app-bar>
@@ -140,12 +151,12 @@
       :height="bottomNav.height"
       :hide-on-scroll="bottomNav.hideOnScroll"
       :horizontal="bottomNav.horizontal"
-      :input-value="bottomNav.inputValue"
       :mandatory="bottomNav.mandatory"
       :scroll-threshold="bottomNav.scrollThreshold"
       :shift="bottomNav.shift"
       :width="bottomNav.width"
-      v-if="bottomNavOn"
+      :input-value="$vuetify.breakpoint.smAndDown"
+      v-if="$vuetify.breakpoint.smAndDown"
     >
       <v-btn v-for="menu in menus" :key="menu.title" :to="menu.url">
         <span>{{ menu.title }}</span>
@@ -164,26 +175,20 @@
       :elevation="footer.elevation"
       :absolute="footer.absolute"
       :fixed="footer.fixed"
-      v-if="footerOn"
+      v-if="$vuetify.breakpoint.mdAndUp"
     >
       <v-card :color="theme.color" tile width="100%" class="text-center">
-        <v-card-text>
-          <v-btn class="mx-4" icon>
-            <v-icon>mdi-email</v-icon>
-          </v-btn>
-          <v-btn class="mx-4" icon>
-            <v-icon>mdi-calendar</v-icon>
-          </v-btn>
-          <v-btn class="mx-4" icon>
-            <v-icon>mdi-delete</v-icon>
-          </v-btn>
-        </v-card-text>
-        <v-divider />
         <v-card-text class="font-weight-medium">2020 — Footer</v-card-text>
       </v-card>
     </v-footer>
   </v-app>
 </template>
+
+<style scoped>
+.logo {
+  text-decoration: none;
+}
+</style>
 
 <script>
 import { mapState, mapActions } from 'vuex'
@@ -191,10 +196,8 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'App',
   data: () => ({
-    drawer: false,
-    drawerOn: true,
-    footerOn: true,
-    bottomNavOn: false,
+    leftDrawer: false,
+    rightDrawer: false,
     offsetTop: 0
   }),
   computed: {
@@ -214,16 +217,7 @@ export default {
     }),
     ...mapState('theme', {
       theme: state => state.props
-    }),
-    drawerIcon() {
-      return this.drawerOn ? 'mdi-alpha-d-box' : 'mdi-alpha-d-box-outline'
-    },
-    footerIcon() {
-      return this.footerOn ? 'mdi-alpha-f-box' : 'mdi-alpha-f-box-outline'
-    },
-    bottomNavIcon() {
-      return this.bottomNavOn ? 'mdi-alpha-b-box' : 'mdi-alpha-b-box-outline'
-    }
+    })
   },
   methods: {
     ...mapActions('navDrawer', ['toggleNavDrawer']),

@@ -4,12 +4,6 @@
     <v-container>
       <v-row>
         <v-col cols="12">
-          <v-subheader>$route</v-subheader>
-          <v-card>
-            <v-card-title>{{ $route.name }}</v-card-title>
-          </v-card>
-        </v-col>
-        <v-col cols="12">
           <v-subheader>$vuetify.breakpoint</v-subheader>
           <v-sheet elevation="2" color="green lighten-4" tile class="pa-2 ma-2" max-width="500">
             <p>Name: {{ $vuetify.breakpoint.name }}</p>
