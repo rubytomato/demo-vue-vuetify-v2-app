@@ -1,2 +1,2 @@
 (window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["favorites"],{"48d5":function(e,t,n){"use strict";n.r(t);var a=function(){var e=this,t=e.$createElement;e._self._c;return e._m(0)},s=[function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("div",{staticClass:"favorites"},[n("h1",[e._v("This is a favorites page")])])}],r={name:"Favorites",data:function(){return{}}},i=r,c=n("2877"),o=Object(c["a"])(i,a,s,!1,null,null,null);t["default"]=o.exports}}]);
-//# sourceMappingURL=favorites.77e1f065.js.map
+//# sourceMappingURL=favorites.f5cdd387.js.map
