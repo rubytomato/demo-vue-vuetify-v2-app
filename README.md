@@ -81,3 +81,24 @@ export default new Vuetify({
   }
 });
 ```
+
+### Install preset basil
+
+```
+$ npm i vue-cli-plugin-vuetify-preset-basil -D
+```
+
+configuration
+
+```js
+// src/plugins/vuetify.js
+
+// Preset
+import { preset } from "vue-cli-plugin-vuetify-preset-basil/preset";
+
+Vue.use(Vuetify);
+
+export default new Vuetify({
+  preset
+});
+```
