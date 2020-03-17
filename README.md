@@ -4,7 +4,7 @@ Vuetify.js Simple Application Demonstration.
 
 **GitHub Pages**
 
-Not yet.
+https://rubytomato.github.io/demo-vue-vuetify-v2-app/
 
 ## Project setup
 
@@ -79,5 +79,26 @@ export default new Vuetify({
   icons: {
     iconfont: "mdi" // default - only for display purposes
   }
+});
+```
+
+### Install preset basil
+
+```
+$ npm i vue-cli-plugin-vuetify-preset-basil -D
+```
+
+configuration
+
+```js
+// src/plugins/vuetify.js
+
+// Preset
+import { preset } from "vue-cli-plugin-vuetify-preset-basil/preset";
+
+Vue.use(Vuetify);
+
+export default new Vuetify({
+  preset
 });
 ```
