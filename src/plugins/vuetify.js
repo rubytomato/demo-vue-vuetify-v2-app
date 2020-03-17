@@ -10,7 +10,7 @@ import { preset } from 'vue-cli-plugin-vuetify-preset-basil/preset'
 
 Vue.use(Vuetify)
 
-export default new Vuetify({
+const vuetify = new Vuetify({
   preset,
   icons: {
     iconfont: 'mdi' // default - only for display purposes
@@ -25,3 +25,5 @@ export default new Vuetify({
     default: 'light'
   }
 })
+
+export default vuetify
