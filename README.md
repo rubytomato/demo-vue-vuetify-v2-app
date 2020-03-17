@@ -4,7 +4,7 @@ Vuetify.js Simple Application Demonstration.
 
 **GitHub Pages**
 
-Not yet.
+https://rubytomato.github.io/demo-vue-vuetify-v2-app/
 
 ## Project setup
 
