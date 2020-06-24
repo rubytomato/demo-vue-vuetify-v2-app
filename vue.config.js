@@ -1,5 +1,8 @@
 module.exports = {
   transpileDependencies: ['vuetify'],
   publicPath: '/demo-vue-vuetify-v2-app/',
-  outputDir: 'docs'
+  outputDir: 'docs',
+  configureWebpack: {
+    devtool: 'source-map'
+  }
 }

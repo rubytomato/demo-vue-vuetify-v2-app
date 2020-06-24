@@ -31,7 +31,7 @@
       :hide-overlay="navDrawer.hideOverlay"
       :mini-variant.sync="navDrawer.miniVariant"
       :mini-variant-width="navDrawer.miniVariantWidth"
-      :mobile-break-point="navDrawer.mobileBreakPoint"
+      :mobile-breakpoint="navDrawer.mobileBreakPoint"
       :overlay-color="navDrawer.overlayColor"
       :overlay-opacity="navDrawer.overlayOpacity"
       :permanent="navDrawer.permanent"
@@ -137,9 +137,9 @@
       </v-btn>
     </v-app-bar>
 
-    <v-content>
+    <v-main>
       <router-view />
-    </v-content>
+    </v-main>
 
     <v-bottom-navigation
       app
